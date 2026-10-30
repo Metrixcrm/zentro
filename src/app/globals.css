@@ -1,0 +1,129 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@custom-variant dark (&:is(.dark *));
+
+/* === ZENTRO GOLD THEME === */
+:root {
+  /* Dark mode (default) — Deep midnight slate + gold */
+  --background: oklch(0.05 0 0);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.11 0.01 250 / 0.6);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.11 0.01 250 / 0.95);
+  --popover-foreground: oklch(0.97 0 0);
+  --primary: #D4AF37;
+  --primary-foreground: oklch(0.13 0.03 50);
+  --secondary: oklch(0.15 0.01 230 / 0.5);
+  --secondary-foreground: oklch(0.97 0 0);
+  --muted: oklch(0.15 0.01 250 / 0.5);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: #D4AF37;
+  --accent-foreground: oklch(0.13 0.03 50);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.82 0.16 55 / 0.2);
+  --input: oklch(0.82 0.16 55 / 0.2);
+  --ring: #D4AF37;
+  --radius: 0.625rem;
+
+  /* Brand colors */
+  --gold-primary: #D4AF37;
+  --gold-warm: #C5A059;
+  --gold-highlight: #F3E5AB;
+  --gold-rich: #B45309;
+  --gold-bronze: #CD7F32;
+  --matrixx-gold: oklch(0.82 0.16 55);
+  --it-blue-gold: oklch(0.74 0.18 250);
+  --vintology-rust: oklch(0.62 0.22 30);
+  --skyland-teal: oklch(0.58 0.16 190);
+  --zentro-mart-green: oklch(0.52 0.18 140);
+  --ayles-berry: oklch(0.62 0.22 340);
+
+  /* Fonts */
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-heading: "Cinzel", Georgia, serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Sidebar */
+  --sidebar: oklch(0.11 0.01 250 / 0.6);
+  --sidebar-foreground: oklch(0.97 0 0);
+  --sidebar-primary: #D4AF37;
+  --sidebar-primary-foreground: oklch(0.13 0.03 50);
+  --sidebar-accent: oklch(0.15 0.01 230 / 0.5);
+  --sidebar-accent-foreground: oklch(0.97 0 0);
+  --sidebar-border: oklch(0.82 0.16 55 / 0.2);
+  --sidebar-ring: #D4AF37;
+}
+
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-mono);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --sidebar: var(--sidebar);
+  --sidebar-foreground: var(--sidebar-foreground);
+  --sidebar-primary: var(--sidebar-primary);
+  --sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --sidebar-accent: var(--sidebar-accent);
+  --sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --sidebar-border: var(--sidebar-border);
+  --sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-transparent outline-0 transition-colors;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-wider;
+  }
+}
+
+@layer utilities {
+  .gold-gradient {
+    @apply bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600;
+  }
+  .gold-glow {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+  }
+  .gold-glow-sm {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+  }
+  .glass-dark {
+    @apply bg-slate-900/60 border border-amber-500/20 backdrop-blur-md;
+  }
+  .glass-light {
+    @apply bg-white/80 border border-amber-300/40 backdrop-blur-md shadow-xl shadow-amber-500/5;
+  }
+}
