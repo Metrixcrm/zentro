@@ -3,35 +3,34 @@
 @import "shadcn/tailwind.css";
 @custom-variant dark (&:is(.dark *));
 
-/* === ZENTRO GOLD THEME — matched to logo (gold on white) === */
+/* === ZENTRO GOLD THEME — matched to logo === */
 :root {
-  /* Light mode (default) — Ivory white + metallic gold */
-  --background: oklch(0.98 0 0);
-  --foreground: oklch(0.15 0 0);
-  --card: oklch(1 0 0 / 0.85);
-  --card-foreground: oklch(0.15 0 0);
-  --popover: oklch(1 0 0 / 0.98);
-  --popover-foreground: oklch(0.15 0 0);
+  /* Dark mode (default) — Obsidian slate + metallic gold */
+  --background: oklch(0.05 0 0);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.11 0.01 250 / 0.75);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.11 0.01 250 / 0.95);
+  --popover-foreground: oklch(0.97 0 0);
   --primary: #D4AF37;
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.95 0.02 55 / 0.6);
-  --secondary-foreground: oklch(0.15 0 0);
-  --muted: oklch(0.95 0.01 55 / 0.5);
-  --muted-foreground: oklch(0.45 0 0);
+  --primary-foreground: oklch(0.13 0.03 50);
+  --secondary: oklch(0.15 0.01 230 / 0.5);
+  --secondary-foreground: oklch(0.97 0 0);
+  --muted: oklch(0.15 0.01 250 / 0.5);
+  --muted-foreground: oklch(0.65 0 0);
   --accent: #D4AF37;
-  --accent-foreground: oklch(0.98 0 0);
+  --accent-foreground: oklch(0.13 0.03 50);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.82 0.16 55 / 0.3);
-  --input: oklch(0.82 0.16 55 / 0.3);
+  --border: oklch(0.82 0.16 55 / 0.22);
+  --input: oklch(0.82 0.16 55 / 0.22);
   --ring: #D4AF37;
   --radius: 0.625rem;
 
-  /* Brand colors */
+  /* Brand colors — from logo spec */
   --gold-primary: #D4AF37;
-  --gold-warm: #C5A059;
-  --gold-highlight: #F3E5AB;
-  --gold-rich: #B45309;
-  --gold-bronze: #CD7F32;
+  --gold-highlight: #F5D77F;
+  --gold-bronze: #8C6D23;
+  --gold-gradient: linear-gradient(135deg, #8C6D23 0%, #D4AF37 50%, #F5D77F 100%);
   --matrixx-gold: oklch(0.82 0.16 55);
   --it-blue-gold: oklch(0.74 0.18 250);
   --vintology-rust: oklch(0.62 0.22 30);
@@ -40,8 +39,8 @@
   --ayles-berry: oklch(0.62 0.22 340);
 
   /* Fonts */
-  --font-sans: "Outfit", system-ui, sans-serif;
-  --font-heading: "Cinzel", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  --font-heading: "Cinzel", "Cormorant Garamond", Georgia, serif;
   --font-mono: "JetBrains Mono", monospace;
 
   /* Sidebar */
