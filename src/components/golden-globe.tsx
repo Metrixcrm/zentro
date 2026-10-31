@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Sphere } from "@react-three/drei";
+import { Torus, Sphere, OrbitControls } from "@react-three/drei";
 import { useRef, useMemo, Suspense } from "react";
 import { Mesh, AdditiveBlending } from "three";
 import { useTheme } from "next-themes";
@@ -45,6 +45,31 @@ function GoldenSphere() {
           opacity={0.85}
         />
       </mesh>
+
+      {/* Crescent arc 1 */}
+      <Torus args={[1.3, 0.02, 16, 100, Math.PI * 1.2]} rotation={[0.3, 0, 0.5]}>
+        <meshStandardMaterial
+          color={GOLD.baseColor}
+          metalness={GOLD.metalness}
+          roughness={GOLD.roughness}
+          emissive={GOLD.emissive}
+          emissiveIntensity={GOLD.emissiveIntensity}
+          transparent
+          opacity={0.7}
+        />
+      </Torus>
+      {/* Crescent arc 2 */}
+      <Torus args={[1.3, 0.02, 16, 100, Math.PI * 1.2]} rotation={[-0.3, 0, -0.5]}>
+        <meshStandardMaterial
+          color={GOLD.baseColor}
+          metalness={GOLD.metalness}
+          roughness={GOLD.roughness}
+          emissive={GOLD.emissive}
+          emissiveIntensity={GOLD.emissiveIntensity}
+          transparent
+          opacity={0.7}
+        />
+      </Torus>
 
       {/* Inner glow sphere (slightly larger, inverted) */}
       <mesh ref={glowRef} scale={1.02}>
