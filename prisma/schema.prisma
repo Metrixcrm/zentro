@@ -1,0 +1,123 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  CUSTOMER
+  VENDOR
+  PROPERTY_HOST
+  SERVICE_CLIENT
+  ADMIN
+}
+
+enum Vertical {
+  MATRIXX_CRM
+  IT_SERVICES
+  VINTOLOGY
+  SKYLAND
+  ZENTRO_MART
+  AYSES
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  passwordHash  String
+  role          Role      @default(CUSTOMER)
+  ssoToken      String?   @unique
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  vendorProfile VendorProfile?
+  crmLeads      CrmLead[]
+  bookings      Booking[]
+  orders        Order[]
+  repairs       RepairTicket[]
+}
+
+model VendorProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  businessName    String
+  category        Vertical
+  isHomeBased     Boolean  @default(true)
+  kycVerified     Boolean  @default(false)
+  stripeAccountId String?
+  products        Product[]
+  properties      Property[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  vendorId    String
+  vendor      VendorProfile @relation(fields: [vendorId], references: [id])
+  vertical    Vertical
+  title       String
+  description String
+  price       Float
+  stock       Int
+  images      String[]
+  createdAt   DateTime @default(now())
+}
+
+model Property {
+  id            String    @id @default(cuid())
+  hostId        String
+  host          VendorProfile @relation(fields: [hostId], references: [id])
+  title         String
+  type          String
+  pricePerNight Float?
+  salePrice     Float?
+  location      String
+  available     Boolean   @default(true)
+  bookings      Booking[]
+}
+
+model Booking {
+  id          String   @id @default(cuid())
+  propertyId  String
+  property    Property @relation(fields: [propertyId], references: [id])
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  checkIn     DateTime
+  checkOut    DateTime
+  totalAmount Float
+  status      String   @default("CONFIRMED")
+}
+
+model CrmLead {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  company       String
+  pipelineStage String   @default("NEW_LEAD")
+  dealValue     Float
+  notes         String?
+}
+
+model RepairTicket {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  deviceModel   String
+  issueType     String
+  status        String   @default("DIAGNOSTIC_PENDING")
+  estimatedCost Float?
+}
+
+model Order {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  vertical    Vertical
+  totalAmount Float
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+}
