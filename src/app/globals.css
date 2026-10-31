@@ -3,26 +3,26 @@
 @import "shadcn/tailwind.css";
 @custom-variant dark (&:is(.dark *));
 
-/* === ZENTRO GOLD THEME === */
+/* === ZENTRO GOLD THEME — matched to logo (gold on white) === */
 :root {
-  /* Dark mode (default) — Deep midnight slate + gold */
-  --background: oklch(0.05 0 0);
-  --foreground: oklch(0.97 0 0);
-  --card: oklch(0.11 0.01 250 / 0.6);
-  --card-foreground: oklch(0.97 0 0);
-  --popover: oklch(0.11 0.01 250 / 0.95);
-  --popover-foreground: oklch(0.97 0 0);
+  /* Light mode (default) — Ivory white + metallic gold */
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0.15 0 0);
+  --card: oklch(1 0 0 / 0.85);
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(1 0 0 / 0.98);
+  --popover-foreground: oklch(0.15 0 0);
   --primary: #D4AF37;
-  --primary-foreground: oklch(0.13 0.03 50);
-  --secondary: oklch(0.15 0.01 230 / 0.5);
-  --secondary-foreground: oklch(0.97 0 0);
-  --muted: oklch(0.15 0.01 250 / 0.5);
-  --muted-foreground: oklch(0.65 0 0);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.95 0.02 55 / 0.6);
+  --secondary-foreground: oklch(0.15 0 0);
+  --muted: oklch(0.95 0.01 55 / 0.5);
+  --muted-foreground: oklch(0.45 0 0);
   --accent: #D4AF37;
-  --accent-foreground: oklch(0.13 0.03 50);
+  --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.82 0.16 55 / 0.2);
-  --input: oklch(0.82 0.16 55 / 0.2);
+  --border: oklch(0.82 0.16 55 / 0.3);
+  --input: oklch(0.82 0.16 55 / 0.3);
   --ring: #D4AF37;
   --radius: 0.625rem;
 
