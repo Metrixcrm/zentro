@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CurrentYear from "./current-year";
 import { Mail, MapPin } from "lucide-react";
 
 const GithubIcon = () => (
@@ -69,7 +70,7 @@ export default function Footer() {
               <span>London, UK • Global Operations</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Zentro Global Holding. All rights reserved.
+              © <CurrentYear /> Zentro Global Holding. All rights reserved.
             </p>
           </div>
         </div>
