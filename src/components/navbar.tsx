@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, Globe } from "lucide-react";
+import { Moon, Sun, Menu, Globe, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
+import SSOModal from "./sso-modal";
 
 const navItems = [
   { name: "Matrixx CRM", href: "/matrixx-crm", color: "matrixx-gold" },
@@ -18,10 +19,12 @@ export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [ssoOpen, setSsoOpen] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
   return (
+    <>
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/30 bg-background/70 backdrop-blur-md">
       <div className="container mx-auto flex items-center justify-between h-16 px-6">
         {/* Logo */}
@@ -54,6 +57,13 @@ export default function Navbar() {
 
         {/* Theme toggle + mobile menu */}
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => setSsoOpen(true)}
+            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-gold-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-gold-warm transition-colors"
+          >
+            <LogIn className="h-4 w-4" />
+            Sign In
+          </button>
           {mounted && (
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -95,5 +105,7 @@ export default function Navbar() {
         </div>
       )}
     </nav>
+    <SSOModal open={ssoOpen} onClose={() => setSsoOpen(false)} />
+    </>
   );
 }

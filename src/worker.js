@@ -56,7 +56,31 @@ export default {
       }
     }
 
-    // Preview page
+    // D1 test insert
+    if (url.pathname === "/api/db/test-insert") {
+      if (!env.DB) return new Response(JSON.stringify({ error: "D1 not bound" }), { status: 503, headers: { "Content-Type": "application/json" } });
+      try {
+        await env.DB.prepare("CREATE TABLE IF NOT EXISTS smoke (id INTEGER PRIMARY KEY, msg TEXT, ts TEXT)").run();
+        await env.DB.prepare("INSERT INTO smoke (msg, ts) VALUES (?, ?)").bind("hello", new Date().toISOString()).run();
+        const r = await env.DB.prepare("SELECT * FROM smoke ORDER BY id DESC LIMIT 5").all();
+        return new Response(JSON.stringify({ success: true, rows: r.results }), { headers: { "Content-Type": "application/json" } });
+      } catch (e) {
+        return new Response(JSON.stringify({ error: e.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+      }
+    }
+
+    // R2 test upload
+    if (url.pathname === "/api/files/test-upload") {
+      if (!env.BUCKET) return new Response(JSON.stringify({ error: "R2 not bound" }), { status: 503, headers: { "Content-Type": "application/json" } });
+      try {
+        await env.BUCKET.put("smoke-test.txt", "hello from zentro smoke test");
+        const obj = await env.BUCKET.get("smoke-test.txt");
+        const text = await obj.text();
+        return new Response(JSON.stringify({ success: true, key: "smoke-test.txt", content: text }), { headers: { "Content-Type": "application/json" } });
+      } catch (e) {
+        return new Response(JSON.stringify({ error: e.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+      }
+    }
     const html = `<!DOCTYPE html>
 <html lang="en">
 <head>

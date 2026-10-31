@@ -4,6 +4,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { motion } from "framer-motion";
 import { CheckCircle, BarChart3, Users, Settings, BarChart, Headphones } from "lucide-react";
+import CrmDashboardWidget from "@/components/crm-dashboard-widget";
 
 const features = [
   { title: "Lead Scoring", desc: "AI-powered predictive lead scoring and pipeline management", icon: BarChart3 },
@@ -46,6 +47,11 @@ export default function MatrixxCrmPage() {
           >
             Request Demo
           </motion.button>
+        </section>
+
+        {/* CRM Dashboard Widget */}
+        <section className="container mx-auto px-6 py-12 max-w-4xl">
+          <CrmDashboardWidget />
         </section>
 
         {/* Features */}

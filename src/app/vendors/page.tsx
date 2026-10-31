@@ -4,6 +4,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { motion } from "framer-motion";
 import { Shield, MessageCircle, Package, DollarSign } from "lucide-react";
+import VendorForm from "@/components/vendor-form";
 
 const features = [
   { title: "Secure Escrow", desc: "Protected transactions with verified escrow payments", icon: Shield },
@@ -58,6 +59,11 @@ export default function VendorsPage() {
               );
             })}
           </div>
+        </section>
+
+        {/* Vendor Onboarding Form */}
+        <section className="container mx-auto px-6 py-12 max-w-2xl">
+          <VendorForm />
         </section>
       </main>
       <Footer />
