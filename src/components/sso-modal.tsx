@@ -138,16 +138,18 @@ export default function SSOModal({
 
           <div className="mt-6">
             <p className="text-xs text-muted-foreground text-center mb-3">
-              Instant access to all 6 platforms:
+              Live session authorization across all platforms:
             </p>
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="grid grid-cols-2 gap-2">
               {services.map((s) => (
-                <span
+                <div
                   key={s}
-                  className="rounded-full border border-amber-500/20 bg-slate-800/40 px-3 py-1 text-xs text-gold-warm"
+                  className="flex items-center gap-2 rounded-lg border border-amber-500/20 bg-slate-800/40 px-3 py-2 text-xs"
                 >
-                  {s}
-                </span>
+                  <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+                  <span className="text-gold-warm">{s}</span>
+                  <span className="ml-auto text-[10px] text-green-400">Connected</span>
+                </div>
               ))}
             </div>
           </div>

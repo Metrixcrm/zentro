@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import { motion } from "framer-motion";
 import { Code, Wind, Smartphone, Search, Bot, Settings, Wrench } from "lucide-react";
 import ITCalculator from "@/components/it-calculator";
+import RepairDiagnostic from "@/components/repair-diagnostic";
 
 const services = [
   { title: "Web Development", desc: "Next.js, React, Vue, and custom web applications for enterprise", icon: Code },
@@ -70,6 +71,11 @@ export default function ItServicesPage() {
         {/* IT Cost Calculator */}
         <section className="container mx-auto px-6 py-12 max-w-3xl">
           <ITCalculator />
+        </section>
+
+        {/* Repair Diagnostic */}
+        <section className="container mx-auto px-6 py-12 max-w-2xl">
+          <RepairDiagnostic />
         </section>
       </main>
       <Footer />
