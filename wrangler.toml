@@ -1,19 +1,11 @@
 name = "zentro"
-account_id = "e0de0498498ec3ce30901af659c5bb1f"
+account_id = "e05bf6df44a164c1b6e5974ca3aa3186"
 compatibility_date = "2025-01-01"
 main = "src/worker.js"
 workers_dev = false
 
-# D1 Database binding
-[[d1_databases]]
-binding = "DB"
-database_name = "zentro"
-database_id = "72104c06-d099-43fc-8d6f-7a231aa123f2"
-
-# R2 Bucket binding
-[[r2_buckets]]
-binding = "BUCKET"
-bucket_name = "zentro"
+# D1 Database binding (optional - create via wrangler d1 create zentro if needed)
+# R2 Bucket binding (optional - create via wrangler r2 bucket create zentro if needed)
 
 # Staging environment configuration
 [vars]

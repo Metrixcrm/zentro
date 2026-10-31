@@ -18,6 +18,7 @@ export default {
 
     // List R2 objects
     if (url.pathname === "/api/files") {
+      if (!env.BUCKET) return new Response(JSON.stringify({ error: "R2 not bound" }), { status: 503, headers: { "Content-Type": "application/json" } });
       try {
         const objects = await env.BUCKET.list();
         return new Response(
@@ -37,6 +38,7 @@ export default {
 
     // D1 database query
     if (url.pathname === "/api/db") {
+      if (!env.DB) return new Response(JSON.stringify({ error: "D1 not bound" }), { status: 503, headers: { "Content-Type": "application/json" } });
       try {
         const result = await env.DB.prepare("SELECT 1 as test").all();
         return new Response(
