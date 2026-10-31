@@ -3,7 +3,16 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
-import GoldenGlobe from "./golden-globe";
+import dynamic from "next/dynamic";
+
+const GoldenGlobe = dynamic(() => import("./golden-globe"), {
+  ssr: false,
+  loading: () => (
+    <div className="relative w-full max-w-md h-80 flex items-center justify-center">
+      <div className="h-32 w-32 rounded-full bg-gradient-to-br from-amber-500/20 to-yellow-400/20 animate-pulse blur-xl" />
+    </div>
+  ),
+});
 
 export default function HeroSection() {
   return (
