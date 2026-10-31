@@ -6,6 +6,15 @@ import { useRef, useMemo, Suspense } from "react";
 import { Mesh, AdditiveBlending } from "three";
 import { useTheme } from "next-themes";
 
+// Shared gold material properties matching Blender render
+const GOLD = {
+  baseColor: "#D4AF37",
+  emissive: "#F3E5AB",
+  metalness: 1.0,
+  roughness: 0.12,
+  emissiveIntensity: 0.3,
+};
+
 function GoldenSphere() {
   const meshRef = useRef<Mesh>(null!);
   const glowRef = useRef<Mesh>(null!);
@@ -24,25 +33,30 @@ function GoldenSphere() {
     <group>
       {/* Main wireframe globe */}
       <mesh ref={meshRef}>
-        <sphereGeometry args={[1, 48, 48]} />
-        <meshBasicMaterial
-          color="#D4AF37"
+        <sphereGeometry args={[1, 64, 64]} />
+        <meshStandardMaterial
+          color={GOLD.baseColor}
           wireframe
+          metalness={GOLD.metalness}
+          roughness={GOLD.roughness}
+          emissive={GOLD.emissive}
+          emissiveIntensity={GOLD.emissiveIntensity}
           transparent
-          opacity={0.55}
+          opacity={0.85}
         />
       </mesh>
 
       {/* Inner glow sphere (slightly larger, inverted) */}
       <mesh ref={glowRef} scale={1.02}>
-        <sphereGeometry args={[1, 32, 32]} />
+        <sphereGeometry args={[1, 48, 48]} />
         <meshBasicMaterial
-          color="#F3E5AB"
+          color={GOLD.emissive}
           side={1}
           transparent
-          opacity={0.08}
+          opacity={0.1}
           depthWrite={false}
           blending={AdditiveBlending}
+          toneMapped={false}
         />
       </mesh>
 
@@ -67,10 +81,14 @@ function LatitudeRings() {
       {[0, Math.PI / 4, -Math.PI / 4, Math.PI / 2].map((rot, i) => (
         <mesh key={i} rotation={[rot, 0, 0]}>
           <ringGeometry args={[0.95, 0.97, 64]} />
-          <meshBasicMaterial
-            color="#D4AF37"
+          <meshStandardMaterial
+            color={GOLD.baseColor}
+            metalness={GOLD.metalness}
+            roughness={GOLD.roughness}
+            emissive={GOLD.emissive}
+            emissiveIntensity={GOLD.emissiveIntensity * 0.5}
             transparent
-            opacity={0.25}
+            opacity={0.6}
             side={1}
           />
         </mesh>
@@ -97,10 +115,15 @@ function LongitudeLines() {
         return (
           <mesh key={i} position={[x, 0, z]} rotation={[0, angle, 0]}>
             <cylinderGeometry args={[0.008, 0.008, 2, 8]} />
-            <meshBasicMaterial
-              color="#D4AF37"
+            <meshStandardMaterial
+              color={GOLD.baseColor}
+              metalness={GOLD.metalness}
+              roughness={GOLD.roughness}
+              emissive={GOLD.emissive}
+              emissiveIntensity={GOLD.emissiveIntensity * 0.5}
               transparent
-              opacity={0.25}
+              opacity={0.6}
+              toneMapped={false}
             />
           </mesh>
         );
@@ -141,7 +164,7 @@ function ParticleField() {
         >
           <octahedronGeometry args={[0.015]} />
           <meshBasicMaterial
-            color="#F3E5AB"
+            color={GOLD.emissive}
             transparent
             opacity={0.5}
             toneMapped={false}
@@ -161,9 +184,19 @@ export default function GoldenGlobe({ className = "" }: { className?: string }) 
         camera={{ position: [0, 0, 3.2], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight intensity={0.5} />
-        <pointLight position={[5, 5, 5]} intensity={0.8} color="#D4AF37" />
-        <pointLight position={[-5, -3, -5]} intensity={0.3} color="#F3E5AB" />
+        <ambientLight intensity={0.3} />
+        <directionalLight
+          position={[5, 5, 5]}
+          intensity={0.8}
+          color={GOLD.baseColor}
+          castShadow
+        />
+        <directionalLight
+          position={[-3, -2, -5]}
+          intensity={0.5}
+          color={GOLD.emissive}
+        />
+        <pointLight position={[0, 0, -5]} intensity={1.0} color={GOLD.emissive} />
         <Suspense fallback={null}>
           <GoldenSphere />
           <ParticleField />
