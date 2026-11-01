@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Text, RoundedBox } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -16,11 +16,16 @@ const PRODUCTS = [
 
 function CarouselRing() {
   const groupRef = useRef<THREE.Group>(null);
+  const { viewport } = useThree();
+  const isMobile = viewport.width < 5;
+  const radius = isMobile ? 2.2 : 3.5;
+  const cardW = isMobile ? 1.2 : 1.6;
+  const cardH = isMobile ? 1.6 : 2.2;
+
   useFrame((_, delta) => {
     if (groupRef.current) groupRef.current.rotation.y += delta * 0.3;
   });
 
-  const radius = 3.5;
   return (
     <group ref={groupRef}>
       {PRODUCTS.map((p, i) => {
@@ -29,7 +34,7 @@ function CarouselRing() {
         const z = Math.sin(angle) * radius;
         return (
           <group key={p.name} position={[x, 0, z]} rotation={[0, -angle + Math.PI / 2, 0]}>
-            <RoundedBox args={[1.6, 2.2, 0.15]} radius={0.1} smoothness={4}>
+            <RoundedBox args={[cardW, cardH, 0.15]} radius={0.1} smoothness={4}>
               <meshStandardMaterial
                 color={p.color}
                 metalness={0.6}
@@ -39,18 +44,18 @@ function CarouselRing() {
               />
             </RoundedBox>
             <Text
-              position={[0, 0.3, 0.1]}
-              fontSize={0.18}
+              position={[0, 0.2, 0.1]}
+              fontSize={isMobile ? 0.12 : 0.18}
               color="#F8FAFC"
               anchorX="center"
               anchorY="middle"
-              maxWidth={1.4}
+              maxWidth={cardW - 0.2}
             >
               {p.name}
             </Text>
             <Text
-              position={[0, -0.1, 0.1]}
-              fontSize={0.12}
+              position={[0, -0.15, 0.1]}
+              fontSize={isMobile ? 0.09 : 0.12}
               color="#D4AF37"
               anchorX="center"
               anchorY="middle"
@@ -66,8 +71,8 @@ function CarouselRing() {
 
 export default function ProductCarousel3D() {
   return (
-    <div className="w-full h-[400px] md:h-[500px]">
-      <Canvas camera={{ position: [0, 1.5, 7], fov: 45 }}>
+    <div className="w-full h-[320px] md:h-[500px]">
+      <Canvas camera={{ position: [0, 1.2, 5.5], fov: 50 }}>
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 5, 5]} intensity={0.8} />
         <pointLight position={[-5, -5, -5]} intensity={0.3} color="#D4AF37" />
